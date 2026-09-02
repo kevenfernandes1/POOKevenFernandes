@@ -1,4 +1,4 @@
-package exercicio5;
+package lista1_excecoes.exercicio5;
 
 public class ContaBancaria {
     private double saldo;
@@ -15,8 +15,6 @@ public class ContaBancaria {
         if (valor > 0) {
             this.saldo += valor;
             System.out.printf("Depósito de R$ %.2f realizado. Saldo atual: R$ %.2f%n", valor, this.saldo);
-        } else {
-            System.out.println("Valor de depósito deve ser positivo.");
         }
     }
 

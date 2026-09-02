@@ -1,4 +1,4 @@
-package exercicio2;
+package lista1_excecoes.exercicio2;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

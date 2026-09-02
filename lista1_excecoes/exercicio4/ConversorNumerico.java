@@ -1,13 +1,9 @@
-package exercicio4;
+package lista1_excecoes.exercicio4;
 
 import java.util.Scanner;
 
 public class ConversorNumerico {
 
-    /**
-     * Converte uma String em número inteiro.
-     * Propaga a exceção NumberFormatException caso o texto não seja um número válido.
-     */
     public static int converterParaInteiro(String texto) throws NumberFormatException {
         return Integer.parseInt(texto);
     }

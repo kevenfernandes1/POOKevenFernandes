@@ -1,4 +1,4 @@
-package exercicio5;
+package lista1_excecoes.exercicio5;
 
 public class TesteContaBancaria {
     public static void main(String[] args) {
