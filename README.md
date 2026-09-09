@@ -1,6 +1,6 @@
 # Repositório de Programação Orientada a Objetos (POO)
 
-Repositório acadêmico contendo as resoluções práticas das listas de exercícios da disciplina de Programação Orientada a Objetos.
+Repositório acadêmico contendo as resoluções práticas das listas de exercícios e projetos integradores da disciplina de Programação Orientada a Objetos.
 
 ---
 
@@ -26,29 +26,54 @@ POOKevenFernandes/
 │       ├── ContaBancaria.java
 │       └── TesteContaBancaria.java
 │
-└── lista2_colecoes_associacoes/
-    ├── nivel1/
+├── lista2_colecoes_associacoes/
+│   ├── nivel1/
+│   │   ├── Produto.java
+│   │   └── MainCadastro.java
+│   ├── nivel2/
+│   │   ├── exercicio2_1/
+│   │   │   ├── Produto.java
+│   │   │   ├── Categoria.java
+│   │   │   └── MainCategoria.java
+│   │   └── exercicio2_2/
+│   │       ├── Produto.java
+│   │       ├── Fabricante.java
+│   │       └── MainFabricante.java
+│   ├── nivel3/
+│   │   ├── Produto.java
+│   │   ├── Item.java
+│   │   ├── NotaFiscal.java
+│   │   └── MainNotaFiscal.java
+│   └── nivel4/
+│       ├── Produto.java
+│       ├── ComparadorPorPreco.java
+│       ├── ComparadorPorCodigo.java
+│       └── MainOrdenacao.java
+│
+└── lista3_colecoes_arquitetura/
+    ├── missao1/
+    │   ├── Rastreavel.java
+    │   ├── PacoteCorreios.java
+    │   ├── CargaTransportadora.java
+    │   ├── EntregaExpressa.java
+    │   ├── CentralRastreamento.java
+    │   └── MainMissao1.java
+    ├── missao2/
+    │   ├── GerenciadorFilas.java
+    │   ├── RegistradorLogsVector.java
+    │   └── MainMissao2.java
+    ├── missao3/
+    │   ├── CupomDesconto.java
+    │   ├── GerenciadorCupons.java
+    │   └── MainMissao3.java
+    ├── missao4/
     │   ├── Produto.java
-    │   └── MainCadastro.java
-    ├── nivel2/
-    │   ├── exercicio2_1/
-    │   │   ├── Produto.java
-    │   │   ├── Categoria.java
-    │   │   └── MainCategoria.java
-    │   └── exercicio2_2/
-    │       ├── Produto.java
-    │       ├── Fabricante.java
-    │       └── MainFabricante.java
-    ├── nivel3/
-    │   ├── Produto.java
-    │   ├── Item.java
-    │   ├── NotaFiscal.java
-    │   └── MainNotaFiscal.java
-    └── nivel4/
+    │   ├── ComparadorPorPreco.java
+    │   └── MainMissao4.java
+    └── missao5/
         ├── Produto.java
-        ├── ComparadorPorPreco.java
-        ├── ComparadorPorCodigo.java
-        └── MainOrdenacao.java
+        ├── ControleEstoquePDV.java
+        └── MainMissao5.java
 ```
 
 ---
@@ -65,39 +90,40 @@ POOKevenFernandes/
 
 ## 📌 Lista 2: Coleções (ArrayList) e Associações em Java
 
-### Nível 1: Introdução ao ArrayList e Manipulação Dinâmica
-- **[Exercício 1.1] Cadastro Básico de Produtos**:
-  - Encapsulamento rigoroso da classe `Produto`.
-  - Métodos `add()`, `size()`, `get()`, `remove()` (por índice e por objeto).
-- **[Exercício 1.2] Busca e Atualização com Iteração**:
-  - `buscarPorCodigo()` para busca linear e tratamento de elemento inexistente.
-  - `aplicarReajusteGeral()` para modificação em massa dos preços via percentual.
+* **Nível 1 — Manipulação Dinâmica com ArrayList**: Inserção, busca linear (`buscarPorCodigo`), remoção (por índice e objeto) e atualização em lote (`aplicarReajusteGeral`).
+* **Nível 2 — Associações 1:N e Consistência Bidirecional**: Agregação unidirecional (`Categoria` -> `Produto`) e integridade referencial bidirecional com prevenção de loop infinito (`Produto` <-> `Fabricante`).
+* **Nível 3 — Classes de Associação (N:M)**: Decomposição de muitos-para-muitos via classe associativa `Item` entre `NotaFiscal` e `Produto`.
+* **Nível 4 — Ordenação e Contratos de Interface**: Ordenação natural com `Comparable<Produto>` e ordenações customizadas com `Comparator<Produto>`.
 
-### Nível 2: Associações Simples (1:N) e Consistência Bidirecional
-- **[Exercício 2.1] Associação Unidirecional (Categoria 1 -> 0..* Produto)**:
-  - Agregação de produtos na classe `Categoria` via `ArrayList<Produto>`.
-- **[Exercício 2.2] Associação Bidirecional Consistente (Produto * <-> 1 Fabricante)**:
-  - Garantia de integridade referencial mútua entre `Produto` e `Fabricante`.
-  - Sincronização automática nos métodos `setFabricante()`, `addProduto()` e `removeProduto()`, prevenindo loops infinitos.
+---
 
-### Nível 3: Relacionamentos N:M e Classes de Associação
-- **[Exercício 3.1] Decomposição de Relacionamento N:M (Nota Fiscal & Produtos via Item)**:
-  - Classe de associação `Item` intermediando `NotaFiscal` e `Produto`.
-  - Cálculo de subtotal por item e soma total dinâmica da nota fiscal.
+## 📌 Lista 3: Coleções e Arquitetura em Java (Projeto Integrador Logística & E-Commerce)
 
-### Nível 4: Ordenação e Contratos de Interface (Comparable e Comparator)
-- **[Exercício 4.1] Ordenação Natural (`Comparable`)**:
-  - Implementação de `Comparable<Produto>` com ordenação alfabética por nome (`compareTo`).
-- **[Exercício 4.2] Critérios de Ordenação Alternativos (`Comparator`)**:
-  - Ordenação por preço crescente (`ComparadorPorPreco`).
-  - Ordenação por preço decrescente (`Collections.reverseOrder()`).
-  - Ordenação alfabética por código (`ComparadorPorCodigo`).
+### Missão 1: Contratos de Serviço e Validação de Tipos
+- **Interface `Rastreavel`**: Desacoplamento de modalidades logísticas (`PacoteCorreios`, `CargaTransportadora`, `EntregaExpressa`).
+- **`CentralRastreamento`**: Inspeção polimórfica via operador `instanceof` e downcasting explícito seguro.
+
+### Missão 2: Filas de Processamento, Listas e Concorrência
+- **`LinkedList` vs `ArrayList`**: Uso da `LinkedList` para inserção nas extremidades (`O(1)`) em filas de pedidos pendentes e VIPs.
+- **`Vector` Concorrente**: Conceito de métodos `synchronized` para registro de auditoria thread-safe em cenários multithread.
+
+### Missão 3: Prevenção de Duplicidades e Navegação Segura
+- **`HashSet` & Contratos `equals`/`hashCode`**: Unicidade estrita de cupons promocionais baseada exclusivamente no código.
+- **Padrão `Iterator`**: Remoção segura de cupons zerados via `it.remove()`, evitando `ConcurrentModificationException`.
+
+### Missão 4: Classificação Automática e Algoritmos de Ordenação
+- **`TreeSet` & Red-Black Tree**: Auto-ordenação com custo $O(\log n)$.
+- **`Comparable` & `Comparator`**: Comparação natural por nome e ranking por preço com desempate rigoroso.
+
+### Missão 5: Acesso Direto O(1) e Indexação por Chave
+- **`HashMap` no Ponto de Venda (PDV)**: Indexação por código de barras e recuperação direta em $O(1)$ sem laços de repetição.
+- **Visões de Coleção**: Exploração de `keySet()` ($Set$) e `values()` ($Collection$).
 
 ---
 
 ## 🚀 Como Compilar e Executar
 
-Na raiz do projeto:
+Na raiz do repositório:
 
 ```bash
 # Compilar todo o projeto
@@ -116,4 +142,11 @@ java lista2_colecoes_associacoes.nivel2.exercicio2_1.MainCategoria
 java lista2_colecoes_associacoes.nivel2.exercicio2_2.MainFabricante
 java lista2_colecoes_associacoes.nivel3.MainNotaFiscal
 java lista2_colecoes_associacoes.nivel4.MainOrdenacao
+
+# --- LISTA 3: COLEÇÕES E ARQUITETURA (PROJETO INTEGRADOR) ---
+java lista3_colecoes_arquitetura.missao1.MainMissao1
+java lista3_colecoes_arquitetura.missao2.MainMissao2
+java lista3_colecoes_arquitetura.missao3.MainMissao3
+java lista3_colecoes_arquitetura.missao4.MainMissao4
+java lista3_colecoes_arquitetura.missao5.MainMissao5
 ```
