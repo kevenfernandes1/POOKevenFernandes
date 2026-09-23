@@ -10,6 +10,8 @@ Repositório acadêmico contendo as resoluções práticas das listas de exercí
 POOKevenFernandes/
 ├── .gitignore
 ├── README.md
+├── lib/
+│   └── postgresql-42.7.4.jar
 │
 ├── lista1_excecoes/
 │   ├── exercicio1/ (DivisaoSegura.java)
@@ -33,13 +35,28 @@ POOKevenFernandes/
 │   ├── missao4/ (Produto.java, ComparadorPorPreco.java, MainMissao4.java)
 │   └── missao5/ (Produto.java, ControleEstoquePDV.java, MainMissao5.java)
 │
-└── lista4_topicos_avancados/
-    ├── Produto.java
-    ├── GerenciadorSubconjuntos.java
-    ├── FilaPedidosQueue.java
-    ├── UtilitariosCollections.java
-    ├── SessoesHashtable.java
-    └── MainAvancado.java
+├── lista4_topicos_avancados/
+│   ├── Produto.java
+│   ├── GerenciadorSubconjuntos.java
+│   ├── FilaPedidosQueue.java
+│   ├── UtilitariosCollections.java
+│   ├── SessoesHashtable.java
+│   └── MainAvancado.java
+│
+└── modulo11_jdbc_postgresql/
+    ├── sql/
+    │   └── schema_ecommerce.sql
+    └── br/com/ecommerce/
+        ├── model/
+        │   ├── Produto.java
+        │   └── Pedido.java
+        └── jdbc/
+            ├── FabricaConexao.java
+            ├── TesteConexaoPostgreSQL.java
+            ├── ProdutoDAO.java
+            ├── ServicoVendaTransacional.java
+            ├── RecursosAvancadosDAO.java
+            └── MainJDBCIntegrador.java
 ```
 
 ---
@@ -52,21 +69,28 @@ POOKevenFernandes/
 
 ### 2. Coleções e Associações (`lista2_colecoes_associacoes`)
 - Manipulação dinâmica com `ArrayList`.
-- Associações 1:N unidirecionais e bidirecionais com garantia de integridade referencial mútua.
+- Associações 1:N unidirecionais e bidirecionais com integridade referencial mútua.
 - Classes de associação N:M (`Item` ligando `NotaFiscal` e `Produto`).
 - Ordenação com `Comparable` e `Comparator`.
 
 ### 3. Coleções e Arquitetura (`lista3_colecoes_arquitetura`)
 - Polimorfismo, `instanceof` e downcasting explícito.
 - Filas com `LinkedList` ($O(1)$) e concorrência multithread com `Vector` (`synchronized`).
-- Unicidade de chaves no `HashSet` (`equals`/`hashCode`) e higienização com `Iterator.remove()`.
+- Unicidade no `HashSet` (`equals`/`hashCode`) e higienização segura com `Iterator.remove()`.
 - Auto-ordenação com `TreeSet` e acesso direto $O(1)$ com `HashMap`.
 
 ### 4. Exercício Complementar Avançado (`lista4_topicos_avancados`)
-- **Subconjuntos (`SortedSet` / `TreeSet`)**: Consultas por faixa (`subSet`), teto (`headSet`) e piso (`tailSet`).
-- **Contrato Formal de Fila (`Queue`)**: Operações seguras com `offer()`, `peek()` e `poll()`.
-- **Utilitários (`Collections`)**: `shuffle()`, `reverse()`, `min()`, `max()` e encapsulamento concorrente `synchronizedList()`.
-- **Estruturas Legadas (`Hashtable` e `Enumeration`)**: Tabela sincronizada nativa sem nulos e percorrimento via `keys()`, `elements()`, `hasMoreElements()` e `nextElement()`.
+- Subconjuntos do `SortedSet` (`subSet`, `headSet`, `tailSet`).
+- Contrato formal `Queue` com `offer()`, `peek()` e `poll()`.
+- Utilitários de `Collections` (`shuffle`, `reverse`, `min`, `max`, `synchronizedList`).
+- Estrutura legada `Hashtable` e percorrimento via `Enumeration`.
+
+### 5. Persistência Relacional com JDBC e PostgreSQL (`modulo11_jdbc_postgresql`)
+- **Nível 1 (Arquitetura e Conexão)**: `FabricaConexao` com `Class.forName("org.postgresql.Driver")`, `DriverManager.getConnection()`, tratamento rigoroso de `ClassNotFoundException` e `SQLException`, e comprovação do polimorfismo da interface `java.sql.Connection`.
+- **Nível 2 (DML Seguro e SQL Injection)**: `ProdutoDAO` utilizando `PreparedStatement` parametrizado (`?`), mapeamento de precisão monetária com `BigDecimal` (`NUMERIC`) e validação de linhas afetadas via `executeUpdate()`.
+- **Nível 3 (Consultas e Cursores)**: Navegação de `ResultSet` com extração posicional e nomeada, mapeamento objeto-relacional (ORM) e encerramento de recursos em cascata (`rs.close()`, `stmt.close()`, `conn.close()`).
+- **Nível 4 (Integridade Transacional ACID)**: `ServicoVendaTransacional` com controle manual `setAutoCommit(false)`, verificação de estoque, débito e registro de pedido atômicos, com `commit()` e tratamento de `rollback()` em falhas.
+- **Nível 5 (Recursos Avançados)**: `RecursosAvancadosDAO` com cursor rolável `TYPE_SCROLL_INSENSITIVE` (`first`, `last`, `previous`, `absolute`) e execução de Stored Procedure corporativa via `CallableStatement` com parâmetros `IN` e `OUT` (`registerOutParameter`).
 
 ---
 
@@ -74,10 +98,14 @@ POOKevenFernandes/
 
 Na raiz do repositório:
 
+### 1. Compilar Todo o Projeto
 ```bash
-# Compilar todo o projeto
-javac $(find . -name "*.java")
+javac -cp "lib/postgresql-42.7.4.jar;." $(find . -name "*.java")
+```
 
+### 2. Executar os Módulos
+
+```bash
 # --- LISTA 1: EXCEÇÕES ---
 java lista1_excecoes.exercicio1.DivisaoSegura
 java lista1_excecoes.exercicio2.AcessoArray
@@ -99,6 +127,10 @@ java lista3_colecoes_arquitetura.missao3.MainMissao3
 java lista3_colecoes_arquitetura.missao4.MainMissao4
 java lista3_colecoes_arquitetura.missao5.MainMissao5
 
-# --- LISTA 4: TÓPICOS AVANÇADOS (EXERCÍCIO COMPLEMENTAR) ---
+# --- LISTA 4: TÓPICOS AVANÇADOS ---
 java lista4_topicos_avancados.MainAvancado
+
+# --- MÓDULO 11: JDBC & POSTGRESQL ---
+java -cp "lib/postgresql-42.7.4.jar;modulo11_jdbc_postgresql;." br.com.ecommerce.jdbc.TesteConexaoPostgreSQL
+java -cp "lib/postgresql-42.7.4.jar;modulo11_jdbc_postgresql;." br.com.ecommerce.jdbc.MainJDBCIntegrador
 ```
