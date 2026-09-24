@@ -2,10 +2,6 @@ package lista4_topicos_avancados;
 
 import java.util.Objects;
 
-/**
- * Entidade Produto com ordenação natural primária por PREÇO (e secundária por código)
- * para viabilizar consultas de faixas, tetos e pisos nas árvores binárias do SortedSet/TreeSet.
- */
 public class Produto implements Comparable<Produto> {
     private String codigo;
     private String nome;
@@ -41,12 +37,7 @@ public class Produto implements Comparable<Produto> {
         this.preco = preco;
     }
 
-    /**
-     * [ORDENAÇÃO NATURAL POR PREÇO]:
-     * 1. Compara primariamente o valor do preço (crescente).
-     * 2. Em caso de empate de preço, utiliza o código como desempate para garantir
-     *    consistência estrita com equals() e evitar que o TreeSet descarte produtos de mesmo valor.
-     */
+    // Ordena por preco (e desempata por codigo para nao sumir no TreeSet)
     @Override
     public int compareTo(Produto outro) {
         if (outro == null) return 1;
@@ -72,6 +63,6 @@ public class Produto implements Comparable<Produto> {
 
     @Override
     public String toString() {
-        return String.format("[Código: %-6s | Nome: %-25s | Preço: R$ %8.2f]", codigo, nome, preco);
+        return "Produto [codigo=" + codigo + ", nome=" + nome + ", preco=" + preco + "]";
     }
 }

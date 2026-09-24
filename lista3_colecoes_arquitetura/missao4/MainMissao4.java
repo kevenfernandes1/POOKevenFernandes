@@ -4,21 +4,13 @@ import java.util.TreeSet;
 
 public class MainMissao4 {
     public static void main(String[] args) {
-        System.out.println("======================================================================");
-        System.out.println(" MISSÃO 4: CLASSIFICAÇÃO AUTOMÁTICA COM TREESET (COMPARABLE/COMPARATOR)");
-        System.out.println("======================================================================");
-
-        // Criando produtos fora de ordem
         Produto p1 = new Produto("PRD04", "Zenfone Asus", 2999.00);
         Produto p2 = new Produto("PRD01", "iPhone 15 Pro", 7200.00);
         Produto p3 = new Produto("PRD05", "Galaxy S24 Ultra", 6500.00);
         Produto p4 = new Produto("PRD02", "Xiaomi Redmi Note", 1400.00);
         Produto p5 = new Produto("PRD03", "Motorola Edge 50", 2200.00);
 
-        // --- PARTE 1: TreeSet com Ordenação Natural (Comparable - Nome Alfabético) ---
-        // O TreeSet mantém os elementos internamente balanceados em uma Árvore Rubro-Negra (Red-Black Tree),
-        // garantindo inserção, remoção e busca com complexidade O(log n).
-        System.out.println("\n>>> 1. CATÁLOGO COM ORDENAÇÃO NATURAL (TreeSet + Comparable<Produto>) <<<");
+        // 1. TreeSet com ordem natural (Comparable por nome)
         TreeSet<Produto> catalogoNatural = new TreeSet<>();
         catalogoNatural.add(p1);
         catalogoNatural.add(p2);
@@ -26,13 +18,12 @@ public class MainMissao4 {
         catalogoNatural.add(p4);
         catalogoNatural.add(p5);
 
-        System.out.println("Catálogo Auto-Ordenado por Nome (Ordem Alfabética):");
+        System.out.println("Catalogo ordenado por nome (Comparable):");
         for (Produto p : catalogoNatural) {
-            System.out.println("  " + p);
+            System.out.println(p);
         }
 
-        // --- PARTE 2: TreeSet com Ordenação Customizada (Comparator - Preço Crescente) ---
-        System.out.println("\n>>> 2. CATÁLOGO COM ORDENAÇÃO CUSTOMIZADA (TreeSet + ComparatorPorPreco) <<<");
+        // 2. TreeSet com comparador customizado (por preco crescente)
         TreeSet<Produto> catalogoPreco = new TreeSet<>(new ComparadorPorPreco());
         catalogoPreco.add(p1);
         catalogoPreco.add(p2);
@@ -40,11 +31,9 @@ public class MainMissao4 {
         catalogoPreco.add(p4);
         catalogoPreco.add(p5);
 
-        System.out.println("Catálogo Auto-Ordenado por Preço (Crescente):");
+        System.out.println("\nCatalogo ordenado por preco (Comparator):");
         for (Produto p : catalogoPreco) {
-            System.out.println("  " + p);
+            System.out.println(p);
         }
-
-        System.out.println("\n======================================================================");
     }
 }

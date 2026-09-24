@@ -13,13 +13,25 @@ public class NotaFiscal {
         this.listaItens = new ArrayList<>();
     }
 
-    public int getNumero() { return numero; }
-    public void setNumero(int numero) { this.numero = numero; }
+    public int getNumero() {
+        return numero;
+    }
 
-    public String getData() { return data; }
-    public void setData(String data) { this.data = data; }
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-    public ArrayList<Item> getListaItens() { return listaItens; }
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public ArrayList<Item> getListaItens() {
+        return listaItens;
+    }
 
     public void addItem(Item item) {
         if (item != null && !this.listaItens.contains(item)) {
@@ -42,22 +54,12 @@ public class NotaFiscal {
     }
 
     public void imprimirNota() {
-        System.out.println("=================================================================");
-        System.out.printf("                    NOTA FISCAL Nº %04d                         %n", numero);
-        System.out.printf(" Data de Emissão: %s%n", data);
-        System.out.println("-----------------------------------------------------------------");
-        System.out.printf("%-10s %-22s %5s %12s %12s%n", "CÓDIGO", "PRODUTO", "QTD", "UNITÁRIO", "SUBTOTAL");
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("Nota Fiscal: " + numero + " - Data: " + data);
         for (Item item : listaItens) {
-            System.out.printf("%-10s %-22s %5d   R$ %9.2f   R$ %9.2f%n",
-                    item.getProduto().getCodigo(),
-                    item.getProduto().getNome(),
-                    item.getQuantidade(),
-                    item.getPrecoVendaUnitario(),
-                    item.calcularSubtotal());
+            System.out.println("- " + item.getProduto().getNome() + " | Qtd: " + item.getQuantidade() 
+                    + " | Unitario: R$ " + item.getPrecoVendaUnitario() 
+                    + " | Subtotal: R$ " + item.calcularSubtotal());
         }
-        System.out.println("-----------------------------------------------------------------");
-        System.out.printf(" VALOR TOTAL DA NOTA:                                R$ %9.2f%n", calcularTotalNota());
-        System.out.println("=================================================================");
+        System.out.printf("Valor Total: R$ %.2f\n", calcularTotalNota());
     }
 }
