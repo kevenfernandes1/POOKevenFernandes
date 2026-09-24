@@ -1,11 +1,7 @@
 package br.com.ecommerce.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-/**
- * Entidade Pedido mapeada para a tabela relacional 'pedido'.
- */
 public class Pedido {
     private String idPedido;
     private String codigoProduto;
@@ -56,10 +52,6 @@ public class Pedido {
 
     @Override
     public String toString() {
-        String dataFormatada = (dataPedido != null) 
-                ? dataPedido.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) 
-                : "N/A";
-        return String.format("[Pedido: %-10s | Produto: %-7s | Qtd: %2d | Data: %s]",
-                idPedido, codigoProduto, quantidadeComprada, dataFormatada);
+        return "Pedido [idPedido=" + idPedido + ", codigoProduto=" + codigoProduto + ", quantidadeComprada=" + quantidadeComprada + ", dataPedido=" + dataPedido + "]";
     }
 }

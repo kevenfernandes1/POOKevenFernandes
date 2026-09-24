@@ -1,12 +1,7 @@
 package br.com.ecommerce.model;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
-/**
- * Entidade de Domínio Produto mapeada para a tabela relacional 'produto'.
- * Utiliza BigDecimal para precisão monetária exata conforme o tipo NUMERIC(10,2) do SQL.
- */
 public class Produto {
     private String codigo;
     private String nome;
@@ -20,13 +15,6 @@ public class Produto {
         this.codigo = codigo;
         this.nome = nome;
         this.preco = preco;
-        this.quantidadeEstoque = quantidadeEstoque;
-    }
-
-    public Produto(String codigo, String nome, double precoDouble, int quantidadeEstoque) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.preco = BigDecimal.valueOf(precoDouble);
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
@@ -63,21 +51,7 @@ public class Produto {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return Objects.equals(codigo, produto.codigo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo);
-    }
-
-    @Override
     public String toString() {
-        return String.format("[Código: %-7s | Nome: %-30s | Preço: R$ %9.2f | Estoque: %3d unid.]",
-                codigo, nome, preco, quantidadeEstoque);
+        return "Produto [codigo=" + codigo + ", nome=" + nome + ", preco=" + preco + ", quantidadeEstoque=" + quantidadeEstoque + "]";
     }
 }
